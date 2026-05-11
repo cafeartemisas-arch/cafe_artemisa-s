@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Artemisa's Café</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f5f1ef;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+height:85px;
+background:#6f3f2c;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 25px;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
+}
+
+/* MENU */
+
+.menu-btn{
+font-size:35px;
+cursor:pointer;
+color:white;
+}
+
+/* LOGO */
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:white;
+}
+
+/* BOTONES */
+
+.categorias{
+display:flex;
+gap:25px;
+align-items:center;
+}
+
+.categorias button{
+background:none;
+border:none;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.categorias button:hover{
+color:#f0c195;
+}
+
+/* CARRITO */
+
+.cart{
+position:relative;
+font-size:30px;
+cursor:pointer;
+color:white;
+}
+
+.cart span{
+position:absolute;
+top:-10px;
+right:-10px;
+width:22px;
+height:22px;
+border-radius:50%;
+background:red;
+color:white;
+font-size:12px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-250px;
+width:250px;
+height:100%;
+background:#fff6ef;
+box-shadow:2px 0 10px rgba(0,0,0,0.2);
+transition:0.4s;
+z-index:2000;
+padding-top:80px;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.sidebar a{
+display:block;
+padding:18px 25px;
+text-decoration:none;
+color:#5a2d16;
+font-size:18px;
+}
+
+.sidebar a:hover{
+background:#e9c9b0;
+}
+
+.close-menu{
+position:absolute;
+top:15px;
+right:20px;
+font-size:28px;
+cursor:pointer;
+}
+
+/* TITULO */
+
+.title{
+text-align:center;
+margin-top:120px;
+font-size:30px;
+color:#4a2a1b;
+font-weight:bold;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+padding:25px;
+padding-bottom:120px;
+}
+
+/* CARDS */
+
+.menu-item{
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+background:white;
+padding:18px;
+border-radius:25px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.menu-item:hover{
+transform:scale(1.05);
+}
+
+.image-circle{
+width:120px;
+height:120px;
+border-radius:50%;
+overflow:hidden;
+margin:auto;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.image-circle img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.item-name{
+margin-top:10px;
+color:#3b2c22;
+font-size:15px;
+font-weight:bold;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:3000;
+}
+
+.modal-content{
+width:350px;
+background:white;
+border-radius:20px;
+padding:20px;
+text-align:center;
+}
+
+.modal-content img{
+width:180px;
+height:130px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.modal-content h2{
+margin-top:10px;
+color:#5a2d16;
+}
+
+table{
+width:100%;
+margin-top:15px;
+}
+
+table td,
+table th{
+padding:5px;
+}
+
+select{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:20px;
+border:1px solid #ccc;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+.buttons button{
+flex:1;
+padding:10px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.add{
+background:#cf8740;
+color:white;
+}
+
+.close{
+background:#8a8a8a;
+color:white;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px){
+
+.grid{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+@media(max-width:800px){
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.categorias{
+display:none;
+}
+
+}
+
+@media(max-width:500px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.logo{
+font-size:24px;
+}
+
+.image-circle{
+width:100px;
+height:100px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+<div class="close-menu" onclick="closeMenu()">
+✖
+</div>
+
+<a href="index.html">Inicio</a>
+<a href="nosotros.html">Nosotros</a>
+<a href="contacto.html">Contacto</a>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="menu-btn" onclick="openMenu()">
+☰
+</div>
+
+<div class="logo">
+Artemisa's
+</div>
+
+<div class="categorias">
+
+<button onclick="location.href='bebidasfrias.html'">
+Bebidas Frías
+</button>
+
+<button onclick="location.href='bebidascalientes.html'">
+Bebidas Calientes
+</button>
+
+<button onclick="location.href='postres.html'">
+Postres
+</button>
+
+</div>
+
+<div class="cart" onclick="window.location.href='carrito.html'">
+
+🛍️
+
+<span id="count">
+0
+</span>
+
+</div>
+
+</header>
+
+<!-- TITULO -->
+
+<div class="title">
+Bebidas Calientes
+</div>
+
+<!-- PRODUCTOS -->
+
+<div class="grid">
+
+<div class="menu-item" onclick="openModal('Café del Día','cafe_dia.jpg',45,55)">
+<div class="image-circle"><img src="cafe_dia.jpg"></div>
+<div class="item-name">Café del Día</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Capuchino','capuchino.jpg',55,65)">
+<div class="image-circle"><img src="capuchino2.jpg"></div>
+<div class="item-name">Capuchino</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Latte','latte.jpg',60,70)">
+<div class="image-circle"><img src="latte4.jpg"></div>
+<div class="item-name">Latte</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Espresso','espresso.jpg',45,55)">
+<div class="image-circle"><img src="espresso7.jpg"></div>
+<div class="item-name">Espresso</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Espresso Americano','americano.jpg',55,65)">
+<div class="image-circle"><img src="americano8.jpg"></div>
+<div class="item-name">Espresso Americano</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Chocolate','chocolate.jpg',60,70)">
+<div class="image-circle"><img src="chocolate9.jpg"></div>
+<div class="item-name">Chocolate</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Chai','chai.jpg',60,70)">
+<div class="image-circle"><img src="chai10.jpg"></div>
+<div class="item-name">Chai</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Taro','taro.jpg',65,75)">
+<div class="image-circle"><img src="taro11.jpg"></div>
+<div class="item-name">Taro</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Té Matcha','matcha.jpg',70,80)">
+<div class="image-circle"><img src="matcha12.jpg"></div>
+<div class="item-name">Té Matcha</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Café Moka','moka.jpg',68,78)">
+<div class="image-circle"><img src="moka13.jpg"></div>
+<div class="item-name">Café Moka</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Moka Blanco','mokablanco.jpg',70,80)">
+<div class="image-circle"><img src="mokablanco.jpg"></div>
+<div class="item-name">Moka Blanco</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Chocolate Blanco','chocoblanco.jpg',65,75)">
+<div class="image-circle"><img src="chocoblanco.jpg"></div>
+<div class="item-name">Chocolate Blanco</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Vainilla Latte','vainilla.jpg',66,76)">
+<div class="image-circle"><img src="vainilla.jpg"></div>
+<div class="item-name">Vainilla Latte</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Caramel Latte','caramel.jpg',68,78)">
+<div class="image-circle"><img src="caramel.jpg"></div>
+<div class="item-name">Caramel Latte</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Lavanda Latte','lavanda.jpg',70,82)">
+<div class="image-circle"><img src="Lavanda.jpg"></div>
+<div class="item-name">Lavanda Latte</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Dirty Chai','dirtychai.jpg',72,84)">
+<div class="image-circle"><img src="dirtychai.jpg"></div>
+<div class="item-name">Dirty Chai</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Tés y Tisanas','tes.jpg',45,55)">
+<div class="image-circle"><img src="tes22.jpg"></div>
+<div class="item-name">Tés y Tisanas</div>
+</div>
+
+<div class="menu-item" onclick="openModal('Café del Día termo','termo.jpg',80,90)">
+<div class="image-circle"><img src="termo.jpg"></div>
+<div class="item-name">Café del Día termo</div>
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<img id="modalImg">
+
+<h2 id="modalTitle"></h2>
+
+<table>
+
+<tr>
+<th></th>
+<th>Mediano</th>
+<th>Grande</th>
+</tr>
+
+<tr>
+<td>Precio</td>
+<td id="precioMediano"></td>
+<td id="precioGrande"></td>
+</tr>
+
+</table>
+
+<select>
+<option>Mediano</option>
+<option>Grande</option>
+</select>
+
+<select>
+<option>Leche Entera</option>
+<option>Leche Deslactosada</option>
+<option>Leche de Almendra</option>
+</select>
+
+<select>
+<option>Sin azúcar</option>
+<option>Poca azúcar</option>
+<option>Normal</option>
+<option>Extra azúcar</option>
+</select>
+
+<div class="buttons">
+
+<button class="add" onclick="agregarProducto()">
+Agregar
+</button>
+
+<button class="close" onclick="closeModal()">
+Cerrar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+window.onload = function(){
+
+let carrito =
+JSON.parse(localStorage.getItem("carrito")) || [];
+
+document.getElementById("count")
+.innerText = carrito.length;
+
+}
+
+/* MENU */
+
+function openMenu(){
+
+document.getElementById("sidebar")
+.classList.add("active");
+
+}
+
+function closeMenu(){
+
+document.getElementById("sidebar")
+.classList.remove("active");
+
+}
+
+/* MODAL */
+
+function openModal(nombre,imagen,precioMediano,precioGrande){
+
+document.getElementById("modal")
+.style.display = "flex";
+
+document.getElementById("modalTitle")
+.innerText = nombre;
+
+document.getElementById("modalImg")
+.src = imagen;
+
+document.getElementById("precioMediano")
+.innerText = "$"+precioMediano;
+
+document.getElementById("precioGrande")
+.innerText = "$"+precioGrande;
+
+}
+
+/* CERRAR */
+
+function closeModal(){
+
+document.getElementById("modal")
+.style.display = "none";
+
+}
+
+/* AGREGAR */
+
+function agregarProducto(){
+
+let producto = {
+
+nombre:
+document.getElementById("modalTitle").innerText,
+
+imagen:
+document.getElementById("modalImg").src,
+
+precio:
+document.getElementById("precioMediano").innerText
+
+};
+
+let carrito =
+JSON.parse(localStorage.getItem("carrito")) || [];
+
+carrito.push(producto);
+
+localStorage.setItem(
+"carrito",
+JSON.stringify(carrito)
+);
+
+document.getElementById("count")
+.innerText = carrito.length;
+
+alert("Producto agregado al carrito");
+
+closeModal();
+
+}
+
+/* CERRAR MODAL AFUERA */
+
+window.onclick = function(e){
+
+let modal =
+document.getElementById("modal");
+
+if(e.target == modal){
+
+modal.style.display = "none";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>>

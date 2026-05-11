@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Carrito | Artemisa's</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f5f1ef;
+padding:120px 30px 30px;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+height:85px;
+background:#6f3f2c;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 25px;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
+}
+
+.menu-btn{
+font-size:35px;
+cursor:pointer;
+color:white;
+}
+
+.logo{
+font-size:34px;
+font-weight:bold;
+color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-250px;
+width:250px;
+height:100%;
+background:#fff6ef;
+box-shadow:2px 0 10px rgba(0,0,0,0.2);
+transition:0.4s;
+z-index:2000;
+padding-top:80px;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.sidebar a{
+display:block;
+padding:18px 25px;
+text-decoration:none;
+color:#5a2d16;
+font-size:18px;
+}
+
+.sidebar a:hover{
+background:#e9c9b0;
+}
+
+.close-menu{
+position:absolute;
+top:15px;
+right:20px;
+font-size:28px;
+cursor:pointer;
+}
+
+/* CONTENEDOR */
+
+.container{
+display:flex;
+gap:25px;
+align-items:flex-start;
+}
+
+/* PRODUCTOS */
+
+.cart-box{
+flex:2;
+background:white;
+padding:25px;
+border-radius:25px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.title{
+font-size:30px;
+color:#5a2d16;
+margin-bottom:25px;
+font-weight:bold;
+}
+
+.product{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 0;
+border-bottom:1px solid #eee;
+gap:15px;
+}
+
+.product-info{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.product img{
+width:90px;
+height:90px;
+border-radius:15px;
+object-fit:cover;
+}
+
+.product h3{
+color:#3b2c22;
+font-size:18px;
+}
+
+.product p{
+color:#777;
+margin-top:5px;
+font-size:14px;
+}
+
+.price{
+font-size:18px;
+font-weight:bold;
+color:#5a2d16;
+}
+
+.delete-btn{
+background:#d9534f;
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* RESUMEN */
+
+.summary{
+flex:1;
+background:white;
+padding:25px;
+border-radius:25px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+position:sticky;
+top:120px;
+}
+
+.summary h2{
+color:#5a2d16;
+margin-bottom:20px;
+}
+
+.summary-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+font-size:16px;
+color:#444;
+}
+
+.total{
+font-size:22px;
+font-weight:bold;
+color:#5a2d16;
+margin-top:20px;
+}
+
+.buy-btn{
+width:100%;
+padding:15px;
+margin-top:25px;
+border:none;
+border-radius:18px;
+background:#cf8740;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.buy-btn:hover{
+background:#b66f2f;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:5000;
+padding:20px;
+overflow:auto;
+}
+
+.modal-content{
+background:white;
+padding:30px;
+border-radius:25px;
+width:420px;
+max-width:100%;
+text-align:center;
+}
+
+.modal-content h2{
+color:#5a2d16;
+margin-bottom:15px;
+}
+
+.modal-content input,
+.modal-content select{
+width:100%;
+padding:14px;
+margin-top:12px;
+border-radius:15px;
+border:1px solid #ccc;
+font-size:15px;
+}
+
+.modal-buttons{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+.modal-buttons button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+font-weight:bold;
+font-size:15px;
+}
+
+.confirm{
+background:#cf8740;
+color:white;
+}
+
+.close{
+background:#999;
+color:white;
+}
+
+.empty{
+text-align:center;
+color:#777;
+padding:40px 0;
+}
+
+/* TICKET FINAL */
+
+.ticket{
+display:none;
+background:#6f3f2c;
+min-height:100vh;
+padding:40px 20px;
+color:white;
+}
+
+.ticket-box{
+max-width:550px;
+margin:auto;
+}
+
+.ticket-logo{
+font-size:42px;
+font-weight:bold;
+text-align:center;
+margin-bottom:20px;
+}
+
+.ticket h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+.ticket-info{
+background:white;
+padding:25px;
+border-radius:25px;
+color:#333;
+}
+
+.ticket-info p{
+margin-bottom:12px;
+font-size:16px;
+}
+
+.ticket button{
+width:100%;
+padding:15px;
+margin-top:15px;
+border:none;
+border-radius:18px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn-volver{
+background:#cf8740;
+color:white;
+}
+
+.btn-cancelar{
+background:white;
+color:#6f3f2c;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.container{
+flex-direction:column;
+}
+
+.summary{
+width:100%;
+position:relative;
+top:0;
+}
+
+.logo{
+font-size:28px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+<div class="close-menu" onclick="closeMenu()">
+✖
+</div>
+
+<a href="index.html">Inicio</a>
+<a href="nosotros.html">Nosotros</a>
+<a href="contacto.html">Contacto</a>
+
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="menu-btn" onclick="openMenu()">
+☰
+</div>
+
+<div class="logo">
+Artemisa's
+</div>
+
+</header>
+
+<!-- CONTENIDO -->
+
+<div class="container" id="contenidoPrincipal">
+
+<!-- PRODUCTOS -->
+
+<div class="cart-box">
+
+<div class="title">
+Tu Carrito
+</div>
+
+<div id="cart-items"></div>
+
+</div>
+
+<!-- RESUMEN -->
+
+<div class="summary">
+
+<h2>Resumen</h2>
+
+<div class="summary-row">
+<span>Productos</span>
+<span id="cantidad">0</span>
+</div>
+
+<div class="summary-row total">
+<span>Total</span>
+<span id="total">$0</span>
+</div>
+
+<button class="buy-btn" onclick="abrirCompra()">
+Comprar
+</button>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modalCompra">
+
+<div class="modal-content">
+
+<h2>Finalizar Compra</h2>
+
+<input type="text"
+id="nombre"
+placeholder="Nombre completo">
+
+<input type="text"
+id="direccion"
+placeholder="Dirección">
+
+<input type="tel"
+id="telefono"
+placeholder="Número de teléfono">
+
+<input type="email"
+id="correo"
+placeholder="Correo electrónico">
+
+<input type="date"
+id="fechaEntrega">
+
+<input type="time"
+id="horaEntrega">
+
+<select id="metodo" onchange="mostrarPago()">
+
+<option value="">
+Selecciona método de pago
+</option>
+
+<option value="Efectivo">
+Efectivo
+</option>
+
+<option value="Tarjeta">
+Tarjeta
+</option>
+
+<option value="Transferencia">
+Transferencia
+</option>
+
+</select>
+
+<!-- TARJETA -->
+
+<div id="datosTarjeta" style="display:none;">
+
+<input type="text"
+id="numeroTarjeta"
+placeholder="Número de tarjeta">
+
+<input type="text"
+id="nombreTarjeta"
+placeholder="Nombre del titular">
+
+<input type="text"
+id="cvv"
+placeholder="CVV">
+
+<input type="month"
+id="vencimiento">
+
+</div>
+
+<!-- EFECTIVO -->
+
+<div id="datosEfectivo" style="display:none;">
+
+<input type="number"
+id="pagaCon"
+placeholder="¿Con cuánto pagará?">
+
+</div>
+
+<div class="modal-buttons">
+
+<button class="confirm"
+onclick="finalizarCompra()">
+
+Confirmar
+
+</button>
+
+<button class="close"
+onclick="cerrarCompra()">
+
+Cancelar
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TICKET -->
+
+<div class="ticket" id="ticketFinal">
+
+<div class="ticket-box">
+
+<div class="ticket-logo">
+Artemisa's
+</div>
+
+<h2>Pedido Confirmado</h2>
+
+<div class="ticket-info">
+
+<p>
+<strong>Nombre:</strong>
+<span id="ticketNombre"></span>
+</p>
+
+<p>
+<strong>Dirección:</strong>
+<span id="ticketDireccion"></span>
+</p>
+
+<p>
+<strong>Teléfono:</strong>
+<span id="ticketTelefono"></span>
+</p>
+
+<p>
+<strong>Correo:</strong>
+<span id="ticketCorreo"></span>
+</p>
+
+<p>
+<strong>Fecha de entrega:</strong>
+<span id="ticketFecha"></span>
+</p>
+
+<p>
+<strong>Hora de entrega:</strong>
+<span id="ticketHora"></span>
+</p>
+
+<p>
+<strong>Método de pago:</strong>
+<span id="ticketMetodo"></span>
+</p>
+
+<p>
+<strong>Total a pagar:</strong>
+$<span id="ticketTotal"></span>
+</p>
+
+</div>
+
+<button class="btn-volver"
+onclick="volverInicio()">
+
+Volver al inicio
+
+</button>
+
+<button class="btn-cancelar"
+onclick="cancelarPedido()">
+
+Cancelar pedido
+
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+let carrito =
+JSON.parse(localStorage.getItem("carrito")) || [];
+
+const cartItems =
+document.getElementById("cart-items");
+
+const cantidad =
+document.getElementById("cantidad");
+
+const total =
+document.getElementById("total");
+
+/* MENU */
+
+function openMenu(){
+
+document.getElementById("sidebar")
+.classList.add("active");
+
+}
+
+function closeMenu(){
+
+document.getElementById("sidebar")
+.classList.remove("active");
+
+}
+
+/* MOSTRAR CARRITO */
+
+function mostrarCarrito(){
+
+cartItems.innerHTML = "";
+
+let totalPrecio = 0;
+
+if(carrito.length === 0){
+
+cartItems.innerHTML = `
+<div class="empty">
+Tu carrito está vacío
+</div>
+`;
+
+cantidad.innerText = "0";
+
+total.innerText = "$0";
+
+return;
+
+}
+
+carrito.forEach((producto,index)=>{
+
+let div = document.createElement("div");
+
+div.classList.add("product");
+
+let precioNumero =
+Number(producto.precio);
+
+totalPrecio += precioNumero;
+
+div.innerHTML = `
+
+<div class="product-info">
+
+<img src="${producto.imagen}">
+
+<div>
+
+<h3>${producto.nombre}</h3>
+
+<p>${producto.tamano || ""}</p>
+
+<p>${producto.leche || ""}</p>
+
+<p>${producto.azucar || ""}</p>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="price">
+$${producto.precio}
+</div>
+
+<button class="delete-btn"
+onclick="eliminarProducto(${index})">
+
+Eliminar
+
+</button>
+
+</div>
+
+`;
+
+cartItems.appendChild(div);
+
+});
+
+cantidad.innerText = carrito.length;
+
+total.innerText = "$" + totalPrecio;
+
+}
+
+/* ELIMINAR */
+
+function eliminarProducto(index){
+
+carrito.splice(index,1);
+
+localStorage.setItem(
+"carrito",
+JSON.stringify(carrito)
+);
+
+mostrarCarrito();
+
+}
+
+/* ABRIR MODAL */
+
+function abrirCompra(){
+
+if(carrito.length === 0){
+
+alert("Tu carrito está vacío");
+
+return;
+
+}
+
+document.getElementById("modalCompra")
+.style.display = "flex";
+
+}
+
+/* CERRAR MODAL */
+
+function cerrarCompra(){
+
+document.getElementById("modalCompra")
+.style.display = "none";
+
+}
+
+/* MOSTRAR MÉTODO */
+
+function mostrarPago(){
+
+let metodo =
+document.getElementById("metodo").value;
+
+document.getElementById("datosTarjeta")
+.style.display = "none";
+
+document.getElementById("datosEfectivo")
+.style.display = "none";
+
+if(metodo === "Tarjeta"){
+
+document.getElementById("datosTarjeta")
+.style.display = "block";
+
+}
+
+if(metodo === "Efectivo"){
+
+document.getElementById("datosEfectivo")
+.style.display = "block";
+
+}
+
+}
+
+/* FINALIZAR COMPRA */
+
+function finalizarCompra(){
+
+let nombre =
+document.getElementById("nombre").value;
+
+let direccion =
+document.getElementById("direccion").value;
+
+let telefono =
+document.getElementById("telefono").value;
+
+let correo =
+document.getElementById("correo").value;
+
+let fechaEntrega =
+document.getElementById("fechaEntrega").value;
+
+let horaEntrega =
+document.getElementById("horaEntrega").value;
+
+let metodo =
+document.getElementById("metodo").value;
+
+let numeroTarjeta =
+document.getElementById("numeroTarjeta").value;
+
+let nombreTarjeta =
+document.getElementById("nombreTarjeta").value;
+
+let cvv =
+document.getElementById("cvv").value;
+
+let vencimiento =
+document.getElementById("vencimiento").value;
+
+let pagaCon =
+document.getElementById("pagaCon").value;
+
+if(
+nombre === "" ||
+direccion === "" ||
+telefono === "" ||
+correo === "" ||
+fechaEntrega === "" ||
+horaEntrega === "" ||
+metodo === ""
+){
+
+alert("Completa toda la información");
+
+return;
+
+}
+
+/* VALIDAR TARJETA */
+
+if(metodo === "Tarjeta"){
+
+if(
+numeroTarjeta === "" ||
+nombreTarjeta === "" ||
+cvv === "" ||
+vencimiento === ""
+){
+
+alert("Completa los datos de la tarjeta");
+
+return;
+
+}
+
+}
+
+/* VALIDAR EFECTIVO */
+
+if(metodo === "Efectivo"){
+
+if(pagaCon === ""){
+
+alert("Ingresa con cuánto pagarás");
+
+return;
+
+}
+
+}
+
+/* MOSTRAR DATOS EN TICKET */
+
+document.getElementById("ticketNombre")
+.innerText = nombre;
+
+document.getElementById("ticketDireccion")
+.innerText = direccion;
+
+document.getElementById("ticketTelefono")
+.innerText = telefono;
+
+document.getElementById("ticketCorreo")
+.innerText = correo;
+
+document.getElementById("ticketFecha")
+.innerText = fechaEntrega;
+
+document.getElementById("ticketHora")
+.innerText = horaEntrega;
+
+document.getElementById("ticketMetodo")
+.innerText = metodo;
+
+document.getElementById("ticketTotal")
+.innerText =
+total.innerText.replace("$","");
+
+/* OCULTAR TODO */
+
+document.getElementById("modalCompra")
+.style.display = "none";
+
+document.getElementById("contenidoPrincipal")
+.style.display = "none";
+
+document.querySelector("header")
+.style.display = "none";
+
+/* MOSTRAR TICKET */
+
+document.getElementById("ticketFinal")
+.style.display = "block";
+
+/* LIMPIAR CARRITO */
+
+localStorage.removeItem("carrito");
+
+carrito = [];
+
+}
+
+/* VOLVER */
+
+function volverInicio(){
+
+window.location.href = "Index.html";
+
+}
+
+/* CANCELAR */
+
+function cancelarPedido(){
+
+location.reload();
+
+}
+
+mostrarCarrito();
+
+</script>
+
+</body>
+</html>

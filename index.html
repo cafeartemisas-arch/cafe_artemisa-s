@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artemisa's Café</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Georgia, serif;
+}
+
+body{
+    background:#d9d9d9;
+}
+
+/* ===== CONTENEDOR ===== */
+
+.contenedor{
+    width:100%;
+    min-height:100vh;
+    background:#f5f1f1;
+}
+
+/* ===== HEADER ===== */
+
+header{
+    width:100%;
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 45px;
+    border-top:8px solid #6d3d2e;
+}
+
+/* LOGO */
+
+.logo img{
+    width:180px;
+}
+
+/* MENU */
+
+nav{
+    display:flex;
+    align-items:center;
+}
+
+nav a{
+    text-decoration:none;
+    color:#2e1d18;
+    margin:0 18px;
+    font-size:22px;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#d48a46;
+}
+
+/* BUSCADOR */
+
+.buscar{
+    font-size:30px;
+    cursor:pointer;
+}
+
+/* ===== BANNER VIDEO ===== */
+
+.banner{
+    width:100%;
+    height:520px;
+    overflow:hidden;
+    position:relative;
+}
+
+/* VIDEO */
+
+.banner video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* ===== CARRUSEL ===== */
+
+.carrusel-section{
+    width:100%;
+    background:#6d3d2e;
+    padding:50px 30px;
+    text-align:center;
+}
+
+.carrusel-section h2{
+    color:white;
+    font-size:48px;
+    margin-bottom:40px;
+}
+
+/* CONTENEDOR */
+
+.carrusel{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+}
+
+/* TARJETAS */
+
+.card{
+    width:240px;
+    height:330px;
+    background:white;
+    border-radius:35px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* LINKS */
+
+.carrusel a{
+    text-decoration:none;
+}
+
+/* FLECHAS */
+
+.flecha{
+    color:white;
+    font-size:70px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.flecha:hover{
+    transform:scale(1.2);
+    color:#d88a44;
+}
+
+/* ===== ELEGIRNOS ===== */
+
+.elegirnos{
+    width:100%;
+    background:#f5f1f1;
+    padding:70px 60px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* TEXTO */
+
+.texto{
+    width:700px;
+}
+
+.texto h2{
+    font-size:58px;
+    font-style:italic;
+    color:#2e1d18;
+    margin-bottom:20px;
+}
+
+.texto p{
+    font-size:31px;
+    line-height:1.6;
+    color:#3a2b26;
+}
+
+/* GRANOS */
+
+.granos{
+    position:absolute;
+    left:0;
+    top:0;
+    width:330px;
+    height:430px;
+}
+
+/* TAZA */
+
+.taza{
+    position:absolute;
+    right:10px;
+    bottom:0;
+    width:320px;
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+    width:100%;
+    background:#d88a44;
+    padding:28px;
+    border-top:12px solid #6d3d2e;
+
+    display:flex;
+    justify-content:center;
+    gap:80px;
+}
+
+/* ICONOS */
+
+.icono img{
+    width:85px;
+    transition:.3s;
+}
+
+.icono img:hover{
+    transform:scale(1.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <!-- ===== HEADER ===== -->
+
+    <header>
+
+        <!-- LOGO -->
+        <div class="logo">
+
+            <img src="Logotipo artemisa.png">
+
+        </div>
+
+        <!-- MENU -->
+        <nav>
+
+            <a href="index.html">Inicio</a>
+            <a href="bebidasfrias.html">Menú</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="contacto.html">Contacto</a>
+
+        </nav>
+
+        <!-- BUSCADOR -->
+        <div class="buscar">⌕</div>
+
+    </header>
+
+    <!-- ===== BANNER VIDEO ===== -->
+
+    <section class="banner">
+
+        <video autoplay muted loop playsinline>
+
+            <source src="banner-video.mp4" type="video/mp4">
+
+        </video>
+
+    </section>
+
+    <!-- ===== CARRUSEL ===== -->
+
+    <section class="carrusel-section">
+
+        <h2>Lo más vendido</h2>
+
+        <div class="carrusel">
+
+            <!-- FLECHA IZQUIERDA -->
+            <a href="bebidasfrias.html" class="flecha">◀</a>
+
+            <!-- PRODUCTO 1 -->
+            <a href="bebidasfrias.html">
+
+                <div class="card">
+
+                    <img src="producto1.jpg">
+
+                </div>
+
+            </a>
+
+            <!-- PRODUCTO 2 -->
+            <a href="menu.html">
+
+                <div class="card">
+
+                    <img src="producto2.jpg">
+
+                </div>
+
+            </a>
+
+            <!-- PRODUCTO 3 -->
+            <a href="bebidasfrias.html">
+
+                <div class="card">
+
+                    <img src="producto3.jpg">
+
+                </div>
+
+            </a>
+
+            <!-- FLECHA DERECHA -->
+            <a href="bebidasfrias.html" class="flecha">▶</a>
+
+        </div>
+
+    </section>
+
+    <!-- ===== ELEGIRNOS ===== -->
+
+    <section class="elegirnos">
+
+        <img src="granos.png" class="granos">
+
+        <div class="texto">
+
+            <h2>¿Por qué elegirnos?</h2>
+
+            <p>
+                Artemisa’s es una cafetería acogedora que ofrece
+                café de calidad y un ambiente tranquilo.
+                Es el lugar ideal para relajarte, convivir con amigos
+                o disfrutar un momento especial.
+            </p>
+
+        </div>
+
+        <img src="taza.png" class="taza">
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+
+    <footer>
+
+        <a href="https://www.facebook.com/people/Artemisas-by-Los-%C3%A1lamos-caf%C3%A9/61569433284523/" class="icono">
+
+            <img src="facebook.png">
+
+        </a>
+
+        <a href="https://www.instagram.com/artemisasbylosalamoscafe/" class="icono">
+
+            <img src="instagram.png">
+
+        </a>
+
+        <a href="https://wa.me/526471141314" class="icono">
+
+            <img src="whatsapp.png">
+
+        </a>
+
+        <a href="https://www.tiktok.com/@artemisasbylosalamoscafe?_r=1&_t=ZS-964590jpysP" class="icono">
+
+            <img src="tiktok.png">
+
+        </a>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

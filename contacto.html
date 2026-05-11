@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artemisa's Café</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#d88949;
+}
+
+/* HEADER */
+.header{
+    background:#f3f3f3;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.left{
+    display:flex;
+    align-items:center;
+}
+
+/* MENU ☰ */
+.menu{
+    font-size:25px;
+    margin-right:15px;
+    cursor:pointer;
+}
+
+/* LOGO */
+.logo img{
+    height:40px;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-250px;
+    width:250px;
+    height:100%;
+    background:#5a2d1a;
+    color:white;
+    padding-top:60px;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.sidebar a{
+    display:block;
+    padding:15px;
+    text-decoration:none;
+    color:white;
+    font-size:18px;
+}
+
+.sidebar a:hover{
+    background:#7b3f2a;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+/* BANNER */
+.banner{
+    position:relative;
+    height:340px;
+    overflow:hidden;
+}
+
+.video-bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    background:rgba(0,0,0,0.5);
+}
+
+.overlay h1{
+    font-size:42px;
+}
+
+.icon{
+    font-size:30px;
+}
+
+/* CONTENIDO */
+.container{
+    background:#7b3f2a;
+    padding:40px 20px;
+    margin-top:-20px;
+    border-top-left-radius:30px;
+    border-top-right-radius:30px;
+}
+
+.form{
+    max-width:350px;
+    margin:0 auto;
+}
+
+.input{
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:25px;
+    background:#eee;
+}
+
+/* BOTÓN */
+.btn{
+    display:block;
+    margin:20px auto;
+    padding:10px 30px;
+    border:none;
+    border-radius:20px;
+    background:#e6e6e6;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* MENSAJE */
+.mensaje{
+    text-align:center;
+    color:white;
+}
+
+/* MAPA */
+.map{
+    width:100%;
+    height:180px;
+    margin-top:25px;
+    border-radius:25px;
+    overflow:hidden;
+}
+
+iframe{
+    width:100%;
+    height:100%;
+    border:0;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="bebidasfrias.html">Menú</a>
+    <a href="nosotros.html">Nosotros</a>
+    <a href="contacto.html">Contacto</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="left">
+        <div class="menu" onclick="toggleMenu()">☰</div>
+        <div class="logo">
+            <img src="Logotipo artemisa.png" alt="Artemisa's">
+        </div>
+    </div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+    <video autoplay muted loop playsinline class="video-bg">
+        <source src="banner.mp4" type="video/mp4">
+    </video>
+    </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="container">
+
+    <div class="form">
+        <input id="nombre" class="input" type="text" placeholder="Nombre">
+        <input id="correo" class="input" type="email" placeholder="Correo">
+        <input id="telefono" class="input" type="tel" placeholder="Número de teléfono">
+        <input id="direccion" class="input" type="text" placeholder="Dirección">
+
+        <button class="btn" onclick="registrar()">Confirmar</button>
+
+        <div class="mensaje" id="mensaje"></div>
+
+        <div class="map">
+            <iframe src="https://maps.google.com/maps?q=Bacobampo%20Sonora&z=15&output=embed"></iframe>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+
+function registrar(){
+    let nombre = document.getElementById("nombre").value.trim();
+    let correo = document.getElementById("correo").value.trim();
+    let telefono = document.getElementById("telefono").value.trim();
+    let direccion = document.getElementById("direccion").value.trim();
+    let mensaje = document.getElementById("mensaje");
+
+    if(!nombre || !correo || !telefono || !direccion){
+        mensaje.innerHTML = "⚠️ Completa todos los campos";
+        return;
+    }
+
+    if(!correo.includes("@")){
+        mensaje.innerHTML = "⚠️ Correo inválido";
+        return;
+    }
+
+    let usuario = {nombre, correo, telefono, direccion};
+
+    let usuarios = JSON.parse(localStorage.getItem("usuariosArtemisa")) || [];
+    usuarios.push(usuario);
+    localStorage.setItem("usuariosArtemisa", JSON.stringify(usuarios));
+
+    let btn = document.querySelector(".btn");
+    btn.innerHTML = "⏳";
+
+    setTimeout(()=>{
+        btn.innerHTML = "✔️";
+        mensaje.innerHTML = "Registro exitoso 🎉";
+    },1200);
+}
+</script>
+
+</body>
+</html>

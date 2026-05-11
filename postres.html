@@ -1,0 +1,366 @@
+   <!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Artemisa's | Postres</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#f5f1ef;
+}
+
+/* HEADER IGUAL AL OTRO */
+.top-header{
+width:100%;
+height:85px;
+background:#5a2d16;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 25px;
+position:fixed;
+top:0;
+left:0;
+z-index:1000;
+}
+
+/* MENU */
+.menu-btn{
+font-size:35px;
+color:white;
+cursor:pointer;
+}
+
+/* LOGO */
+.logo{
+font-size:34px;
+font-weight:bold;
+color:white;
+}
+
+/* BOTONES */
+.categorias{
+display:flex;
+gap:20px;
+align-items:center;
+}
+
+.categorias button{
+background:none;
+border:none;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.categorias button:hover{
+color:#f0c195;
+}
+
+/* CARRITO */
+.cart{
+position:relative;
+font-size:30px;
+color:white;
+cursor:pointer;
+}
+
+.cart span{
+position:absolute;
+top:-10px;
+right:-10px;
+width:22px;
+height:22px;
+border-radius:50%;
+background:red;
+color:white;
+font-size:12px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+top:0;
+left:-250px;
+width:250px;
+height:100%;
+background:#fff6ef;
+transition:0.4s;
+padding-top:80px;
+z-index:2000;
+}
+
+.sidebar.active{left:0;}
+
+.sidebar a{
+display:block;
+padding:18px;
+text-decoration:none;
+color:#5a2d16;
+}
+
+.close-menu{
+position:absolute;
+top:15px;
+right:20px;
+font-size:28px;
+cursor:pointer;
+}
+
+/* TITULO */
+.title{
+text-align:center;
+margin-top:120px;
+font-size:30px;
+color:#4a2a1b;
+font-weight:bold;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+padding:25px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:110px;
+height:110px;
+border-radius:50%;
+object-fit:cover;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+.card p{
+margin-top:8px;
+font-weight:bold;
+color:#3b2c22;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.modal-content{
+width:350px;
+background:white;
+padding:20px;
+border-radius:20px;
+text-align:center;
+}
+
+.modal-content img{
+width:180px;
+height:130px;
+object-fit:cover;
+border-radius:10px;
+}
+
+select{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.buttons button{
+flex:1;
+padding:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+.add{background:#cf8740;color:white;}
+.close{background:#888;color:white;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.grid{grid-template-columns:repeat(2,1fr);}
+}
+
+@media(max-width:500px){
+.grid{grid-template-columns:1fr;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="top-header">
+
+<div class="menu-btn" onclick="openMenu()">☰</div>
+
+<div class="logo">Artemisa's</div>
+
+<div class="categorias">
+<button onclick="location.href='bebidasfrias.html'">Bebidas Frías</button>
+<button onclick="location.href='bebidascalientes.html'">Bebidas Calientes</button>
+<button onclick="location.href='postres.html'">Postres</button>
+</div>
+
+<div class="cart" onclick="window.location.href='carrito.html'">
+🛍️ <span id="count">0</span>
+</div>
+
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+<div class="close-menu" onclick="closeMenu()">✖</div>
+<a href="index.html">Inicio</a>
+<a href="nosotros.html">Nosotros</a>
+<a href="contacto.html">Contacto</a>
+
+</div>
+
+<!-- TITULO -->
+<div class="title">Postres</div>
+
+<!-- GRID -->
+<div class="grid">
+
+<div class="card" onclick="openModal('Bollitos','bollitos.jpg')">
+<img src="bollitos.jpg"><p>Bollitos</p>
+</div>
+
+<div class="card" onclick="openModal('Brownies','brownies.jpg')">
+<img src="brownies.jpg"><p>Brownies</p>
+</div>
+
+<div class="card" onclick="openModal('Cheesecake','cheesecakes.jpg')">
+<img src="cheesecakes.jpg"><p>Cheesecake</p>
+</div>
+
+<div class="card" onclick="openModal('Croissants','croissants.jpg')">
+<img src="croissants.jpg"><p>Croissants</p>
+</div>
+
+<div class="card" onclick="openModal('Galletas','galletas.jpg')">
+<img src="galletas.jpg"><p>Galletas</p>
+</div>
+
+<div class="card" onclick="openModal('Pasteles','pasteles.jpg')">
+<img src="pasteles.jpg"><p>Pasteles</p>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<img id="modalImg">
+<h2 id="modalTitle"></h2>
+
+<select>
+<option>Porción Individual</option>
+<option>Grande</option>
+</select>
+
+<select>
+<option>Chocolate</option>
+<option>Fresa</option>
+<option>Vainilla</option>
+</select>
+
+<div class="buttons">
+<button class="add" onclick="agregar()">Agregar</button>
+<button class="close" onclick="closeModal()">Cerrar</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+document.getElementById("count").innerText = carrito.length;
+
+function openMenu(){
+document.getElementById("sidebar").classList.add("active");
+}
+
+function closeMenu(){
+document.getElementById("sidebar").classList.remove("active");
+}
+
+function openModal(nombre,imagen){
+document.getElementById("modal").style.display="flex";
+document.getElementById("modalTitle").innerText=nombre;
+document.getElementById("modalImg").src=imagen;
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+function agregar(){
+
+carrito.push({
+nombre:document.getElementById("modalTitle").innerText,
+imagen:document.getElementById("modalImg").src
+});
+
+localStorage.setItem("carrito",JSON.stringify(carrito));
+
+document.getElementById("count").innerText=carrito.length;
+
+closeModal();
+
+}
+
+</script>
+
+</body>
+</html>
